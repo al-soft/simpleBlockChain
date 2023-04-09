@@ -25,7 +25,7 @@ func Test_calculateHash(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		actual := calculateHash(tt.testBlock)
+		actual := CalculateHash(tt.testBlock)
 		assert.Equal(t, tt.expectedHash, actual)
 	}
 }
@@ -54,7 +54,7 @@ func Test_generateBlock(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		actual, err := generateBlock(tt.testOldBlock, tt.testBPM)
+		actual, err := GenerateBlock(tt.testOldBlock, tt.testBPM)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -87,9 +87,9 @@ func Test_isBlockValid(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt.newBlock.Hash = calculateHash(tt.newBlock)
+		tt.newBlock.Hash = CalculateHash(tt.newBlock)
 
-		actual := isBlockValid(tt.newBlock, tt.oldBlock)
+		actual := IsBlockValid(tt.newBlock, tt.oldBlock)
 		assert.Equal(t, tt.expected, actual)
 	}
 }
@@ -112,7 +112,7 @@ func Test_replaceChain(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		replaceChain(tt.testNewBlocks)
+		ReplaceChain(tt.testNewBlocks)
 		actual := Blockchain
 		assert.Equal(t, tt.expectedBlocks, actual)
 	}

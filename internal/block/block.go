@@ -17,7 +17,7 @@ type Block struct {
 
 var Blockchain []Block
 
-func calculateHash(block Block) string {
+func CalculateHash(block Block) string {
 	var record string
 	record = fmt.Sprint(block.Index) + block.Timestamp + fmt.Sprint(block.BPM) + block.PrevHash
 
@@ -28,7 +28,7 @@ func calculateHash(block Block) string {
 	return hex.EncodeToString(hashsum)
 }
 
-func generateBlock(oldBlock Block, BPM int) (Block, error) {
+func GenerateBlock(oldBlock Block, BPM int) (Block, error) {
 
 	var newBlock Block
 
@@ -38,12 +38,12 @@ func generateBlock(oldBlock Block, BPM int) (Block, error) {
 	newBlock.Timestamp = t.String()
 	newBlock.BPM = BPM
 	newBlock.PrevHash = oldBlock.Hash
-	newBlock.Hash = calculateHash(newBlock)
+	newBlock.Hash = CalculateHash(newBlock)
 
 	return newBlock, nil
 }
 
-func isBlockValid(newBlock, oldBlock Block) bool {
+func IsBlockValid(newBlock, oldBlock Block) bool {
 	if oldBlock.Index+1 != newBlock.Index {
 		return false
 	}
@@ -52,14 +52,14 @@ func isBlockValid(newBlock, oldBlock Block) bool {
 		return false
 	}
 
-	if calculateHash(newBlock) != newBlock.Hash {
+	if CalculateHash(newBlock) != newBlock.Hash {
 		return false
 	}
 
 	return true
 }
 
-func replaceChain(newBlocks []Block) {
+func ReplaceChain(newBlocks []Block) {
 	if len(newBlocks) > len(Blockchain) {
 		Blockchain = newBlocks
 	}
